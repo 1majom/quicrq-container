@@ -1,0 +1,18 @@
+FROM alpine
+
+
+RUN apk add \
+    ca-certificates cmake git make gcc pkgconfig openssl-dev alpine-sdk
+    # pkg-config build-essential libssl-dev
+
+RUN git clone https://github.com/quicr/quicrq/
+
+WORKDIR /quicrq
+
+RUN cmake .
+RUN make
+
+EXPOSE 30900/udp
+CMD ["/quicrq/quicrq_app","-p","30900","-c","/quicrq/certs/cert.pem","-k","/quicrq/certs/key.pem","relay","quicrq-server-headless","s","4433"]
+
+

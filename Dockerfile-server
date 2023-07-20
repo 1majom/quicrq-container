@@ -12,7 +12,6 @@ WORKDIR /quicrq
 RUN cmake .
 RUN make
 
-EXPOSE 4433
-CMD ["/quicrq_app","-c certs/cert.pem -k certs/key.pem -p 4433 server"]
+EXPOSE 4433/udp
 
-
+CMD ["/quicrq/quicrq_app","-c","/quicrq/certs/cert.pem","-k","/quicrq/certs/key.pem","-p","4433","server"]
