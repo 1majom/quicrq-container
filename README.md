@@ -17,10 +17,15 @@
         - apply modified metallb-config.yaml
     - apply both server and relay yamls
     - get ip with k get svc
-    - run getter client, and posting client
+    - run getter client, and posting client e.g.
         - ./quicrq_app -p 4436 client 172.28.255.200 s 30900 get:videotest1:./me_tests/test1.bin
         - ./quicrq_app -p 4434 client 172.28.255.200 s 30900 post:videotest1:./tests/video1_source.bin
     - works, minikube might work with metallb also
 - gke
-    - creating autoplilot cluster, and applying all server and relay yamls and it works
+    - creating autoplilot cluster, and applying all server and relay yamls and it works while using stream
+- gke using datagram transmission
+    - some problems came up, the transmission sometime occurs, sometimes stops at around 50KB of transmitted file
+    - the problem is not because of the ports used by the clients, it works in kind
+    - the problem is not because of the relay would be available in more than 1 replicas, it works in kind
+
 

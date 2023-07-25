@@ -18,7 +18,7 @@ metadata:
   labels:
     app: quicrq-relay
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: quicrq-relay

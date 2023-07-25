@@ -6,6 +6,6 @@ kubectl wait --namespace metallb-system \
                 --selector=app=metallb \
                 --timeout=40s  \
                 --all 
-echo "asd" &&
-#itt lenne irva, hogy !!! You should check the IP address range with \"docker network inspect -f {{.IPAM.Config}} kind" and change it if needed in the next yaml
-kubectl apply -f metallb-config.yaml
+echo "You should check the IP address range with \"docker network inspect -f {{.IPAM.Config}} kind\" and change it if needed in the next yaml"
+echo "kubectl apply -f kind/metallb-config.yaml"
+# kubectl apply -f metallb-config.yaml
