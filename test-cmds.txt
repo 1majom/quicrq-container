@@ -5,4 +5,15 @@ posting client#1: ./quicrq_app -p 4434 client 127.0.0.1 s 30900 post:videotest1:
 getting client#1: ./quicrq_app -p 4436 client 127.0.0.1 s 30900 get:videotest1:./me_tests/test1.bin
 
 
+172.28.255.200
+posting client#1: ./quicrq_app -p 4434 client 172.28.255.200 s 30900 post:videotest1:./tests/video1_source.bin
+getting client#1: ./quicrq_app -p 4436 client 172.28.255.200 s 30900 get:videotest1:./me_tests/test1.bin
+posting client#1: ./quicrq_app -p 4433 client 172.28.255.200 s 30900 post:videotest2:./tests/video1_source.bin
+getting client#1: ./quicrq_app -p 4437 client 172.28.255.200 s 30900 get:videotest2:./me_tests/test2.bin
+
+35.228.93.31
+posting client#1: ./quicrq_app -p 4434 client 35.228.93.31 s 30900 post:videotest1:./tests/video1_source.bin
+getting client#1: ./quicrq_app -p 4436 client 35.228.93.31 s 30900 get:videotest1:./me_tests/test1.bin
+posting client#1: ./quicrq_app -p 4433 client 35.228.93.31 s 30900 post:videotest2:./tests/video1_source.bin
+getting client#1: ./quicrq_app -p 4437 client 35.228.93.31 s 30900 get:videotest2:./me_tests/test2.bin
 

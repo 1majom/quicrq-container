@@ -15,7 +15,7 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: server
+  name: quicrq-server
 spec:
   selector:
     matchLabels:
@@ -34,3 +34,4 @@ spec:
         - containerPort: 4433
           protocol: UDP
         imagePullPolicy: Always
+#kubectl expose deployment quicrq-server --port=4433 --target-port=4433 --name=quicrq-server-lb --type=LoadBalancer

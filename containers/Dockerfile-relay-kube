@@ -13,6 +13,6 @@ RUN cmake .
 RUN make
 
 EXPOSE 30900/udp
-CMD ["/quicrq/quicrq_app","-p","30900","-c","/quicrq/certs/cert.pem","-k","/quicrq/certs/key.pem","relay","quicrq-server-headless","s","4433"]
+CMD ["/quicrq/quicrq_app","-p","30900","-c","/quicrq/certs/cert.pem","-k","/quicrq/certs/key.pem","relay","quicrq-server-headless","d","4433"]
 
 
