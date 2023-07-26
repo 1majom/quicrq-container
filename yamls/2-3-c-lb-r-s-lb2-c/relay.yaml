@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quicrq-relay
+  labels:
+    app: quicrq-relay
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quicrq-relay
+  template:
+    metadata:
+      labels:
+        app: quicrq-relay
+    spec:
+      containers:
+      - name: quicrq-relay
+        image: 1majom/quicrq:relay-kube
+        ports:
+        - containerPort: 30900
+          protocol: UDP
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quicrq-relay-lb
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 34.118.44.165
+  selector:
+    app: quicrq-relay
+  ports:
+    - protocol: UDP
+      port: 30900
+      targetPort: 30900
