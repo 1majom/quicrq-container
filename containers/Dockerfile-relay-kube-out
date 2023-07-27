@@ -12,7 +12,7 @@ WORKDIR /quicrq
 RUN cmake .
 RUN make
 
-EXPOSE 30900/udp
+EXPOSE 30902/udp
 CMD ["/quicrq/quicrq_app","-p","30902","-c","/quicrq/certs/cert.pem","-k","/quicrq/certs/key.pem","relay","quicrq-relay-headless","d","30900"]
 
 

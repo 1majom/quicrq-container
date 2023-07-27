@@ -1,7 +1,0 @@
-post-lb-r-s-lb2-get
-./quicrq_app  client 34.116.207.34 d 4433 get:videotest4:./me_tests/test1.bin > echo nudli
-./quicrq_app client 34.118.44.165 d 30900 post:videotest4:../tests/video1_source.bin > echo nudli
-
-get-lb-r-s-lb2-post
-./quicrq_app  client 34.116.207.34 d 4433 post:videotest4:../tests/video1_source.bin > echo nudli
-./quicrq_app client 34.118.44.165 d 30900 get:videotest4:./me_tests/test1.bin > echo nudli

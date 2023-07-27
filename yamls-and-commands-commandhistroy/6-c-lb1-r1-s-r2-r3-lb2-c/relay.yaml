@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quicrq-relay-between
+  labels:
+    app: quicrq-relay-between
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quicrq-relay-between
+  template:
+    metadata:
+      labels:
+        app: quicrq-relay-between
+    spec:
+      containers:
+      - name: quicrq-relay
+        image: 1majom/quicrq:relay-kube
+        securityContext:
+          capabilities:
+            add:
+            - NET_RAW
+        ports:
+        - containerPort: 30900
+          protocol: UDP
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quicrq-relay-headless
+  labels:
+    app: quicrq-relay-between
+spec:
+  ports:
+  - port: 30900
+    protocol: UDP
+  clusterIP: None
+  selector:
+    app: quicrq-relay-between
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: quicrq-relay-lb
+# spec:
+#   type: LoadBalancer
+#   loadBalancerIP: 34.116.207.34
+#   selector:
+#     app: quicrq-relay-between
+#   ports:
+#     - protocol: UDP
+#       port: 30900
+#       targetPort: 30900

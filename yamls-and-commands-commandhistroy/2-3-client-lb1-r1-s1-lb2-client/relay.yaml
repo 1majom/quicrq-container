@@ -17,6 +17,10 @@ spec:
       containers:
       - name: quicrq-relay
         image: 1majom/quicrq:relay-kube
+        securityContext:
+          capabilities:
+            add:
+            - NET_RAW
         ports:
         - containerPort: 30900
           protocol: UDP
@@ -28,7 +32,7 @@ metadata:
   name: quicrq-relay-lb
 spec:
   type: LoadBalancer
-  loadBalancerIP: 34.118.44.165
+  loadBalancerIP: 34.116.207.34
   selector:
     app: quicrq-relay
   ports:

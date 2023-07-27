@@ -19,19 +19,22 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: quicrq-server # has to match .spec.template.metadata.labels
+      app: quicrq-server 
   serviceName: "quicrq-server"
-  replicas: 1 # by default is 1
+  replicas: 1 
   template:
     metadata:
       labels:
-        app: quicrq-server # has to match .spec.selector.matchLabels
+        app: quicrq-server 
     spec:
       containers:
       - name: quicrq-server
         image: 1majom/quicrq:server
+        securityContext:
+          capabilities:
+            add:
+            - NET_RAW
         ports:
         - containerPort: 4433
           protocol: UDP
         imagePullPolicy: Always
-#kubectl expose deployment quicrq-server --port=4433 --target-port=4433 --name=quicrq-server-lb --type=LoadBalancer

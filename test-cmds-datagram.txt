@@ -1,6 +1,0 @@
-server: ./quicrq_app -c certs/cert.pem -k certs/key.pem -p 4433 server
-relay:  ./quicrq_app -p 30900 -c certs/cert.pem -k certs/key.pem relay 34.116.207.34 d 4433
-posting client#1: ./quicrq_app -p 4434 client 34.116.207.34 d 30900 post:videotest1:./tests/video1_source.bin
-getting client#1: ./quicrq_app -p 4436 client 34.116.207.34 d 30900 get:videotest1:./me_tests/test1.bin
-
-
