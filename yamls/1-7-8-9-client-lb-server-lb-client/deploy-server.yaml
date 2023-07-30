@@ -1,43 +1,39 @@
-
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quicrq-relay-in
-  labels:
-    app: quicrq-relay-in
+  name: quicrq-server
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: quicrq-relay-in
+      app: quicrq-server # has to match .spec.template.metadata.labels
+  replicas: 1 # by default is 1
   template:
     metadata:
       labels:
-        app: quicrq-relay-in
+        app: quicrq-server # has to match .spec.selector.matchLabels
     spec:
       containers:
-      - name: quicrq-relay-in
-        image: 1majom/quicrq:relay-kube-in
+      - name: quicrq-server
+        image: 1majom/quicrq:server
         securityContext:
           capabilities:
             add:
             - NET_RAW
         ports:
-        - containerPort: 30901
+        - containerPort: 4433
           protocol: UDP
         imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: quicrq-relay-in-lb
+  name: quicrq-server-lb
 spec:
   type: LoadBalancer
-  loadBalancerIP: 34.116.170.230
+  loadBalancerIP: 34.127.110.101
   selector:
-    app: quicrq-relay-in
+    app: quicrq-server
   ports:
     - protocol: UDP
-      port: 30901
-      targetPort: 30901
+      port: 4433
+      targetPort: 4433

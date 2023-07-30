@@ -32,7 +32,7 @@ metadata:
   name: quicrq-relay-lb
 spec:
   type: LoadBalancer
-  loadBalancerIP: 34.116.207.34
+  loadBalancerIP: 104.198.13.201
   selector:
     app: quicrq-relay
   ports:
@@ -70,7 +70,7 @@ metadata:
   name: quicrq-relay-in-lb
 spec:
   type: LoadBalancer
-  loadBalancerIP: 34.116.170.230
+  loadBalancerIP: 34.127.110.101
   selector:
     app: quicrq-relay-in
   ports:

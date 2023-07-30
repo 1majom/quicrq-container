@@ -42,5 +42,12 @@
     - if the sending gets stuck
         - i did not look into the main reason of the problem sometimes it is resolved by retrying, sometimes i waited and restarted the pods.
         - the problem might be related to gke and the handling of udp packets, because from the command histroy it can be seen that the problem dissapeared when using the same command with the same deployments...
+    - probable reason why the tests got stuck:
+        - at work and at the dorm i was connected to the wifi. once i tried wired connection at the dorm the tests worked without a problem...
+    - sciprt.sh
+        - this script runs all the test once a gke cluster is configured on the system
+        - before running the script you should build and push the container images, and provide the variables in a secret_variables.sh file mainly oldIP1/2, and two directories. one where the quicrq_app executable is located and one with this repos yamls
+        - todo: i could not get kubectl's wait functionality to wait for the LB and deploy creations before running the tests. Now this is solved by a simple sleep which can be skipped with pressing x
+        - todo: making variables for the yamls because now the ip change is done by 2 sed commands
 
 
