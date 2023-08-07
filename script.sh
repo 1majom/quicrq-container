@@ -44,6 +44,7 @@ echo "frick (scenario 1)";
 countdown
 for id in {1..3}
 do
+  echo $id
   ./quicrq_app client $IP1 d 4433 get:videotest$id:./me_tests/test1.bin > LOGS-$where/$id-get.csv  & \
   ./quicrq_app client $IP1 d 4433 post:videotest$id:../tests/video1_source.bin > LOGS-$where/$id-post.csv & \
   wait;
@@ -57,6 +58,7 @@ cd $quicrqdir ;
 countdown
 for id in {4..6}
 do
+  echo $id  
   ./quicrq_app client $IP1 d 4433 get:videotest$id:./me_tests/test1.bin > LOGS-$where/$id-get.csv & \
   ./quicrq_app client $IP2 d 30900 post:videotest$id:../tests/video1_source.bin > LOGS-$where/$id-post.csv & \
   wait;
@@ -64,7 +66,8 @@ done
 echo "scenario 3";
 # 3 sc
 for id in {7..9}
-do 
+do
+  echo $id  
   ./quicrq_app client $IP1 d 4433 post:videotest$id:../tests/video1_source.bin > LOGS-$where/$id-post.csv & \
   ./quicrq_app client $IP2 d 30900 get:videotest$id:./me_tests/test1.bin > LOGS-$where/$id-get.csv & \
   wait;
@@ -80,6 +83,7 @@ cd $quicrqdir ;
 countdown;
 for id in {10..12}
 do
+  echo $id  
   ./quicrq_app client $IP1 d 30900 get:videotest$id:./me_tests/test1.bin > LOGS-$where/$id-get.csv & \
   ./quicrq_app client $IP1 d 30900 post:videotest$id:../tests/video1_source.bin > LOGS-$where/$id-post.csv & \
   wait;
@@ -95,6 +99,7 @@ cd $quicrqdir ;
 countdown;
 for id in {13..15}
 do
+  echo $id  
   ./quicrq_app client $IP2 d 30900 get:videotest$id:./me_tests/test1.bin > LOGS-$where/$id-get.csv &
   ./quicrq_app client $IP1 d 30901 post:videotest$id:../tests/video1_source.bin > LOGS-$where/$id-post.csv & \
   wait;
@@ -110,6 +115,7 @@ cd $quicrqdir ;
 countdown;
 for id in {16..18}
 do
+  echo $id  
   ./quicrq_app client $IP2 d 30902  get:videotest$id:./me_tests/test1.bin > LOGS-$where/$id-get.csv & \
   ./quicrq_app client $IP1 d 30901 post:videotest$id:../tests/video1_source.bin > LOGS-$where/$id-post.csv & \
   wait;
@@ -125,6 +131,7 @@ cd $quicrqdir;
 countdown;
 for id in {19..21}
 do
+    echo $id    
     ./quicrq_app client -p 8899 $IP1 d 4433 get:videotest$id:./me_tests/test1.bin > LOGS-$where/$id-get-1.csv  & \
     ./quicrq_app client -p 8898  $IP1 d 4433 get:videotest$id:./me_tests/test1.bin > LOGS-$where/$id-get-2.csv  & \
     ./quicrq_app client  -p 8897 $IP1 d 4433 get:videotest$id:./me_tests/test1.bin > LOGS-$where/$id-get-3.csv  & \

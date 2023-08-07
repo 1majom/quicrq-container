@@ -1,0 +1,9 @@
+netstat -lntu
+apk add netcat-openbsd
+iperf -c 34.116.217.65 -i 1 -u
+iperf -s -u -e -p 5001
+
+# iperf -s -u -e --realtime -p 5001
+nc -u -l 9999
+netcat -l 4444
+nc -u ip 9999

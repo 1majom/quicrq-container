@@ -1,39 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quicrq-server
+  name: net-debug
 spec:
   selector:
     matchLabels:
-      app: quicrq-server # has to match .spec.template.metadata.labels
-  replicas: 1 # by default is 1
+      app: net-debug 
+  replicas: 1 
   template:
     metadata:
       labels:
-        app: quicrq-server # has to match .spec.selector.matchLabels
+        app: net-debug
     spec:
       containers:
-      - name: quicrq-server
-        image: 1majom/quicrq:server
+      - name: net-debug
+        image: retvari/net-debug
+        command: ["iperf"]
+        args: ["-s","-u","-e"]
         securityContext:
           capabilities:
             add:
             - NET_RAW
         ports:
-        - containerPort: 4433
+        - containerPort: 5001
           protocol: UDP
         imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: quicrq-server-lb
+  name: net-debug-lb-u
 spec:
   type: LoadBalancer
-  loadBalancerIP: 34.127.110.101
   selector:
-    app: quicrq-server
+    app: net-debug
   ports:
     - protocol: UDP
-      port: 4433
-      targetPort: 4433
+      port: 5001
+      targetPort: 5001

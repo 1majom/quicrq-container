@@ -14,6 +14,10 @@ spec:
       labels:
         app: quicrq-relay
     spec:
+      initContainers:
+      - name: init-myservice
+        image: busybox:1.28
+        command: ['sh', '-c', "for i in {1..100}; do sleep 1; if nslookup quicrq-server-headless; then exit 0; fi; done;"]
       containers:
       - name: quicrq-relay
         image: 1majom/quicrq:relay-kube
@@ -32,7 +36,7 @@ metadata:
   name: quicrq-relay-lb
 spec:
   type: LoadBalancer
-  loadBalancerIP: 34.127.110.101
+  loadBalancerIP: 34.116.161.51
   selector:
     app: quicrq-relay
   ports:

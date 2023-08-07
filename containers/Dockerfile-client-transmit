@@ -7,13 +7,12 @@ RUN apk add \
 
 RUN git clone -b tinkering https://github.com/1majom/quicrq_tinkering
 
-
 WORKDIR /quicrq_tinkering 
 
 RUN cmake .
 RUN make
 
-EXPOSE 4436/udp
+EXPOSE 4437/udp
 CMD ["sleep","3600000000"]
 
 

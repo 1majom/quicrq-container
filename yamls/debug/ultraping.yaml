@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ultraping-server
+spec:
+  selector:
+    matchLabels:
+      app: ultraping-server # has to match .spec.template.metadata.labels
+  replicas: 1 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: ultraping-server # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+      - name: ultraping-server
+        image: 1majom/ultraping
+        securityContext:
+          capabilities:
+            add:
+            - NET_RAW
+        ports:
+        - containerPort: 8888
+          protocol: UDP
+        - containerPort: 48678
+          protocol: UDP
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ultraping-server-lb-u
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 34.116.161.51
+  selector:
+    app: ultraping-server
+  ports:
+    - protocol: UDP
+      port: 8888
+      targetPort: 8888
+      name: eight
+    - protocol: UDP
+      port: 9999
+      targetPort: 9999
+      name: four
