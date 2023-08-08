@@ -1,5 +1,3 @@
-
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -31,16 +29,3 @@ spec:
         - containerPort: 30901
           protocol: UDP
         imagePullPolicy: Always
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: quicrq-relay-in-lb
-spec:
-  type: LoadBalancer
-  selector:
-    app: quicrq-relay-in
-  ports:
-    - protocol: UDP
-      port: 30901
-      targetPort: 30901

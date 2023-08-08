@@ -32,7 +32,6 @@ metadata:
   name: ultraping-server-lb-u
 spec:
   type: LoadBalancer
-  loadBalancerIP: 34.116.161.51
   selector:
     app: ultraping-server
   ports:

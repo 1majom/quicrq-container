@@ -23,16 +23,3 @@ spec:
         - containerPort: 4433
           protocol: UDP
         imagePullPolicy: Always
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: quicrq-server-lb-1
-spec:
-  type: LoadBalancer
-  selector:
-    app: quicrq-server
-  ports:
-    - protocol: UDP
-      port: 4433
-      targetPort: 4433

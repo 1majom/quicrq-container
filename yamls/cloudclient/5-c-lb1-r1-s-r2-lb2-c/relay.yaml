@@ -17,7 +17,7 @@ spec:
       initContainers:
       - name: init-myservice
         image: busybox:1.28
-        command: ['sh', '-c', "for i in {1..100}; do sleep 1; if nslookup quicrq-server-headless; then exit 0; fi; done;"]
+        command: ['sh', '-c', "for i in {1..100}; do sleep 5; if nslookup quicrq-server-headless; then exit 0; fi; done;"]
       containers:
       - name: quicrq-relay
         image: 1majom/quicrq:relay-kube
@@ -29,19 +29,6 @@ spec:
         - containerPort: 30900
           protocol: UDP
         imagePullPolicy: Always
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: quicrq-relay-lb
-spec:
-  type: LoadBalancer
-  selector:
-    app: quicrq-relay
-  ports:
-    - protocol: UDP
-      port: 30900
-      targetPort: 30900
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -62,7 +49,7 @@ spec:
       initContainers:
       - name: init-myservice
         image: busybox:1.28
-        command: ['sh', '-c', "for i in {1..100}; do sleep 1; if nslookup quicrq-server-headless; then exit 0; fi; done;"]
+        command: ['sh', '-c', "for i in {1..100}; do sleep 5; if nslookup quicrq-server-headless; then exit 0; fi; done;"]
       containers:
       - name: quicrq-relay-in
         image: 1majom/quicrq:relay-kube-in
@@ -70,16 +57,3 @@ spec:
         - containerPort: 30901
           protocol: UDP
         imagePullPolicy: Always
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: quicrq-relay-in-lb
-spec:
-  type: LoadBalancer
-  selector:
-    app: quicrq-relay-in
-  ports:
-    - protocol: UDP
-      port: 30901
-      targetPort: 30901
