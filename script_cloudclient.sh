@@ -29,8 +29,8 @@ function countdown(){
   stty icanon
 }
 echo "NAME the samples";
-countdown
-where="eucent-cloudclient2-0808";
+sleep 3;
+where="euwest-cloudclient-0808";
 yamldir="/home/szebala/Documents/bme/szakgyak/quicrq/yamls/cloudclient"
 quicrqdir="/home/szebala/Dev/CLionProjects/quicrq_tinkering/cmake-build-debug/"
 cd $yamldir ;
@@ -52,7 +52,7 @@ TRANSMIT_POD=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[1].meta
 echo $RECEIVE_POD
 echo $TRANSMIT_POD
 echo $SERVER_IP
-countdown
+sleep 5;
 for id in {1..3}
 do
   echo $id
@@ -76,7 +76,7 @@ bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-
 bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-client1..."; external_ip=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[1].status.podIP}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip'
 RECEIVE_POD=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[0].metadata.name}")
 TRANSMIT_POD=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[1].metadata.name}")
-countdown
+sleep 5;
 for id in {4..6}
 do
   echo $id
@@ -105,7 +105,7 @@ bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-
 RELAY_IP=$(kubectl get pod -l app=quicrq-relay -o jsonpath="{.items[0].status.podIP}")
 RECEIVE_POD=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[0].metadata.name}")
 TRANSMIT_POD=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[1].metadata.name}")
-countdown;
+sleep 5;
 for id in {10..12}
 do
   echo $id  
@@ -121,14 +121,14 @@ echo "scenario 5";
 
 kubectl apply -f 5-c-lb1-r1-s-r2-lb2-c/;
 cd $quicrqdir;
-bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-server..."; external_ip=$(kubectl get pod -l app=quicrq-server -o jsonpath="{.items[0].status.podIP}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip';
+bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-server..."; external_ip=$(kubectl get pod -l app=1quicrq-server -o jsonpath="{.items[0].status.podIP}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip';
 bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-relay..."; external_ip=$(kubectl get pod -l app=quicrq-relay -o jsonpath="{.items[0].status.podIP}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip';
 RELAY_IP=$(kubectl get pod -l app=quicrq-relay -o jsonpath="{.items[0].status.podIP}");
 bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-relay-in..."; external_ip=$(kubectl get pod -l app=quicrq-relay-in -o jsonpath="{.items[0].status.podIP}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip'
 RELAY_IP_IN=$(kubectl get pod -l app=quicrq-relay-in -o jsonpath="{.items[0].status.podIP}");
 RECEIVE_POD=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[0].metadata.name}");
 TRANSMIT_POD=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[1].metadata.name}");
-countdown;
+sleep 5;
 for id in {13..15}
 do
   echo $id  
@@ -155,7 +155,7 @@ bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-
 RECEIVE_POD=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[0].metadata.name}");
 bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-relay-in..."; external_ip=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[1].status.podIP}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip';
 TRANSMIT_POD=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[1].metadata.name}");
-countdown;
+sleep 5;
 for id in {16..18}
 do
   echo $id  
@@ -177,7 +177,7 @@ TRANSMIT_POD=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[0].meta
 RECEIVE_POD1=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[1].metadata.name}");
 RECEIVE_POD2=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[2].metadata.name}");
 RECEIVE_POD3=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[3].metadata.name}");
-countdown;
+sleep 5;
 for id in {19..21}
 do
     echo $id    
