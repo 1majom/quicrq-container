@@ -16,8 +16,8 @@ SERVER_IP=$(kubectl get svc ultraping-server-lb-u --template="{{range .status.lo
 cd $quicrqdir
 cd ../..
 cd ultra_ping
-python3 ../../ultra_ping/echo.py --client 35.189.200.222  --n_packets 2 --payload_len 100
-python3 ../../ultra_ping/echo.py --client 35.189.200.222 --n_packets 2 --payload_len 150
+python3 echo.py --client $SERVER_IP  --n_packets 2 --payload_len 100
+python3 echo.py --client $SERVER_IP --n_packets 2 --payload_len 150
 python3 echo.py --client $SERVER_IP --output_filename $quicrqdir/ultra_ping-$where
 awk -F' ' '{sum+=$2; ++n} END { print "Avg: "sum"/"n"="sum/n }' < logs/$where 
 
