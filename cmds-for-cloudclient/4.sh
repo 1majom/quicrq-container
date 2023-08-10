@@ -5,9 +5,11 @@ kubectl delete all --all & wait;
 echo "scenario 4";
 kubectl apply -f 4-client-lb-relay-server-relay-lb-client/stateful-server.yaml;
 bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-relay..."; external_ip=$(kubectl get pod -l app=1quicrq-server -o jsonpath="{.items[0].status.podIP}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip'
+
 kubectl apply -f 4-client-lb-relay-server-relay-lb-client/relay.yaml;
 bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-relay..."; external_ip=$(kubectl get pod -l app=quicrq-relay -o jsonpath="{.items[0].status.podIP}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip'
 RELAY_IP=$(kubectl get pod -l app=quicrq-relay -o jsonpath="{.items[0].status.podIP}")
+
 kubectl apply -f 4-client-lb-relay-server-relay-lb-client/client.yaml;
 bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-client0..."; external_ip=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[0].status.podIP}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip'
 bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-client1..."; external_ip=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[1].status.podIP}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip'

@@ -2,7 +2,7 @@ source 0.sh;
 cd $quicrqdir ;
 mkdir LOGS-$where;
 cd $yamldir ;
-# kubectl delete all --all & wait;
+kubectl delete all --all & wait;
 
 
 kubectl apply -f 1-7-8-9-client-lb-server-lb-client/deploy-server.yaml;
