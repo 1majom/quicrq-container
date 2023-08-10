@@ -26,3 +26,5 @@ cd $quicrqdir
 bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for end point..."; external_ip=$(kubectl get svc net-debug-lb-u --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip;'
 SERVER_IP=$(kubectl get svc net-debug-lb-u --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
 iperf -c $SERVER_IP  -i 1 -u -b 80000 -l 100
+server_pod=$(kubectl get pod -l app=net-debug -o jsonpath="{.items[0].metadata.name}")
+kubectl logs $server_pod
