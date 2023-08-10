@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quicrq-server
+  name: 1quicrq-server
 spec:
   selector:
     matchLabels:
-      app: quicrq-server # has to match .spec.template.metadata.labels
+      app: 1quicrq-server # has to match .spec.template.metadata.labels
   replicas: 1 # by default is 1
   template:
     metadata:
       labels:
-        app: quicrq-server # has to match .spec.selector.matchLabels
+        app: 1quicrq-server # has to match .spec.selector.matchLabels
     spec:
       containers:
-      - name: quicrq-server
+      - name: 1quicrq-server
         image: 1majom/quicrq:server
         securityContext:
           capabilities:
@@ -27,11 +27,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: quicrq-server-lb-1
+  name: quicrq-server-lb
 spec:
   type: LoadBalancer
   selector:
-    app: quicrq-server
+    app: 1quicrq-server
   ports:
     - protocol: UDP
       port: 4433

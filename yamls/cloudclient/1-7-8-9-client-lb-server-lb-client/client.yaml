@@ -19,6 +19,11 @@ spec:
           capabilities:
             add:
             - NET_RAW
+        resources:
+          limits:
+            cpu: "5"
+          requests:
+            cpu: "5"
         ports:
         - containerPort: 4467
           protocol: UDP

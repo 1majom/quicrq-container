@@ -14,10 +14,6 @@ spec:
       labels:
         app: quicrq-relay
     spec:
-      initContainers:
-      - name: init-myservice
-        image: busybox:1.28
-        command: ['sh', '-c', "for i in {1..100}; do sleep 5; if nslookup quicrq-server-headless; then exit 0; fi; done;"]
       containers:
       - name: quicrq-relay
         image: 1majom/quicrq:relay-kube

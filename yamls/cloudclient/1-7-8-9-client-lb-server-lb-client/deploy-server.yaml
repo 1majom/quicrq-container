@@ -1,20 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quicrq-server
+  name: 1quicrq-server
 spec:
   selector:
     matchLabels:
-      app: quicrq-server # has to match .spec.template.metadata.labels
+      app: 1quicrq-server # has to match .spec.template.metadata.labels
   replicas: 1 # by default is 1
   template:
     metadata:
       labels:
-        app: quicrq-server # has to match .spec.selector.matchLabels
+        app: 1quicrq-server # has to match .spec.selector.matchLabels
     spec:
       containers:
-      - name: quicrq-server
+      - name: 1quicrq-server
         image: 1majom/quicrq:server
+        resources:
+          limits:
+            cpu: "2"
+          requests:
+            cpu: 1000m
         securityContext:
           capabilities:
             add:

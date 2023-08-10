@@ -12,6 +12,7 @@ spec:
       labels:
         app: quicrq-client # has to match .spec.selector.matchLabels
     spec:
+      initContainers:   
       containers:
       - name: quicrq-client
         image: 1majom/quicrq:client

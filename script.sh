@@ -180,5 +180,5 @@ kubectl apply -f yamls/debug/ultraping.yaml
 bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for end point..."; external_ip=$(kubectl get svc ultraping-server-lb-u --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready-" && echo $external_ip; export endpoint=$external_ip'
 IP=$(kubectl get svc ultraping-server-lb-u --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
 cd /home/szebala/Documents/bme/szakgyak/ultra_ping/
-py ../ultra_ping/echo.py --client $IP --output_filename ../ultra_ping/logs/$where
-
+py echo.py --client $IP --output_filename logs/$where
+awk -F' ' '{sum+=$2; ++n} END { print "Avg: "sum"/"n"="sum/n }' < logs/$where 

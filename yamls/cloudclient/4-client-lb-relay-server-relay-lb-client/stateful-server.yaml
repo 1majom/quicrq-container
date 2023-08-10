@@ -3,32 +3,32 @@ kind: Service
 metadata:
   name: quicrq-server-headless
   labels:
-    app: quicrq-server
+    app: 1quicrq-server
 spec:
   ports:
   - port: 4433
     protocol: UDP
   clusterIP: None
   selector:
-    app: quicrq-server
+    app: 1quicrq-server
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: quicrq-server
+  name: 1quicrq-server
 spec:
   selector:
     matchLabels:
-      app: quicrq-server 
-  serviceName: "quicrq-server"
+      app: 1quicrq-server 
+  serviceName: "1quicrq-server"
   replicas: 1 
   template:
     metadata:
       labels:
-        app: quicrq-server 
+        app: 1quicrq-server 
     spec:
       containers:
-      - name: quicrq-server
+      - name: 1quicrq-server
         image: 1majom/quicrq:server
         securityContext:
           capabilities:

@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quicrq-server-2
+  name: 1quicrq-server
 spec:
   selector:
     matchLabels:
-      app: quicrq-server 
+      app: 1quicrq-server 
   replicas: 1 
   template:
     metadata:
       labels:
-        app: quicrq-server 
+        app: 1quicrq-server 
     spec:
       containers:
-      - name: quicrq-server
+      - name: 1quicrq-server
         image: 1majom/quicrq:server
         securityContext:
           capabilities:
@@ -29,10 +29,10 @@ kind: Service
 metadata:
   name: quicrq-server-headless
   labels:
-    app: quicrq-server
+    app: 1quicrq-server
 spec:
   ports:
   - port: 4433
     protocol: UDP
   selector:
-    app: quicrq-server
+    app: 1quicrq-server
