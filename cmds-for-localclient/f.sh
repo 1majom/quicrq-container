@@ -20,8 +20,8 @@ python3 echo.py --client $SERVER_IP  --n_packets 2 --payload_len 100
 python3 echo.py --client $SERVER_IP --n_packets 2 --payload_len 150
 python3 echo.py --client $SERVER_IP --output_filename $quicrqdir/ultra_ping-$where
 awk -F' ' '{sum+=$2; ++n} END { print "Avg: "sum"/"n"="sum/n }' < logs/$where 
-
-kubectl apply -f $yamldir/debug/net-debug.yaml 
+cd $yamldir
+kubectl apply -f ../debug/net-debug.yaml 
 cd $quicrqdir
 bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for end point..."; external_ip=$(kubectl get svc net-debug-lb-u --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip;'
 SERVER_IP=$(kubectl get svc net-debug-lb-u --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
