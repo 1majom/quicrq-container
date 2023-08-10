@@ -19,7 +19,7 @@ cd ultra_ping
 python3 echo.py --client $SERVER_IP  --n_packets 2 --payload_len 100
 python3 echo.py --client $SERVER_IP --n_packets 2 --payload_len 150
 python3 echo.py --client $SERVER_IP --output_filename $quicrqdir/ultra_ping-$where
-awk -F' ' '{sum+=$2; ++n} END { print "Avg: "sum"/"n"="sum/n }' < logs/$where 
+awk -F' ' '{sum+=$2; ++n} END { print "Avg: "sum"/"n"="sum/n }' < $quicrqdir/ultra_ping-$where >> $quicrqdir/ultra_ping-$where
 cd $yamldir
 kubectl apply -f ../debug/net-debug.yaml 
 cd $quicrqdir
