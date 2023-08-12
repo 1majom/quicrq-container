@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: quicrq-server-headless
+  labels:
+    app: 1quicrq-server
+spec:
+  ports:
+  - port: 4433
+    protocol: UDP
+  clusterIP: None
+  selector:
+    app: 1quicrq-server
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: 1quicrq-server
+spec:
+  selector:
+    matchLabels:
+      app: 1quicrq-server
+  serviceName: "1quicrq-server"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: 1quicrq-server
+    spec:
+      containers:
+      - name: 1quicrq-server
+        image: 1majom/quicrq:server
+        securityContext:
+          capabilities:
+            add:
+            - NET_RAW
+        ports:
+        - containerPort: 4433
+          protocol: UDP
+        imagePullPolicy: Always

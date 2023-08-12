@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quicrq-client
+spec:
+  selector:
+    matchLabels:
+      app: quicrq-client # has to match .spec.template.metadata.labels
+  replicas: 2 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: quicrq-client # has to match .spec.selector.matchLabels
+    spec:
+      initContainers:   
+      containers:
+      - name: quicrq-client
+        image: 1majom/quicrq:client
+        securityContext:
+          capabilities:
+            add:
+            - NET_RAW
+        ports:
+        - containerPort: 4467
+          protocol: UDP
+        imagePullPolicy: Always

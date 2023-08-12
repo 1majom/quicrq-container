@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iperf3
+spec:
+  selector:
+    matchLabels:
+      app: iperf3 
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: iperf3
+    spec:
+      containers:
+      - name: iperf3
+        image: networkstatic/iperf3
+        command: ["sleep 3500000000"]
+        # args: ["-s","-p","5201"]
+        securityContext:
+          capabilities:
+            add:
+            - NET_RAW
+        ports:
+        - containerPort: 5201
+          protocol: UDP
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iperf3-lb-u
+spec:
+  type: LoadBalancer
+  selector:
+    app: iperf3
+  ports:
+    - protocol: UDP
+      port: 5201
+      targetPort: 5201

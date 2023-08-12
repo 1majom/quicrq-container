@@ -6,10 +6,11 @@ echo "scenario 7-8-9";
 kubectl config use-context $clusterA;
 
 kubectl apply -f 1-7-8-9-client-lb-server-lb-client/deploy-server.yaml;
-bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-server..."; external_ip=$(kubectl get pod -l app=1quicrq-server -o jsonpath="{.items[0].status.podIP}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip';
-SERVER_IP=$(kubectl get pod -l app=1quicrq-server -o jsonpath="{.items[0].status.podIP}");
-kubectl config use-context $clusterB;
 
+bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for end point..."; external_ip=$(kubectl get svc quicrq-server-lb --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip;'
+SERVER_IP=$(kubectl get svc quicrq-server-lb --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
+
+kubectl config use-context $clusterB;
 kubectl apply -f 1-7-8-9-client-lb-server-lb-client/client.yaml;
 
 
@@ -21,8 +22,8 @@ TRANSMIT_POD=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[0].meta
 RECEIVE_POD1=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[1].metadata.name}");
 RECEIVE_POD2=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[2].metadata.name}");
 RECEIVE_POD3=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[3].metadata.name}");
-cd $quicrqdir;
 
+cd $quicrqdir;
 sleep 5;
 for id in {19..21}
 do

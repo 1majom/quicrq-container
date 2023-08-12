@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 1quicrq-server
+spec:
+  selector:
+    matchLabels:
+      app: 1quicrq-server # has to match .spec.template.metadata.labels
+  replicas: 1 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: 1quicrq-server # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+      - name: 1quicrq-server
+        image: 1majom/quicrq:server
+        resources:
+          limits:
+            cpu: "2"
+          requests:
+            cpu: 1000m
+        securityContext:
+          capabilities:
+            add:
+            - NET_RAW
+        ports:
+        - containerPort: 4433
+          protocol: UDP
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quicrq-server-lb
+spec:
+  type: LoadBalancer
+  selector:
+    app: 1quicrq-server
+  ports:
+    - protocol: UDP
+      port: 4433
+      targetPort: 4433
