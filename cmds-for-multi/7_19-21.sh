@@ -35,7 +35,7 @@ RECEIVE_POD3=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[3].meta
 
 cd $quicrqdir;
 sleep 5;
-for id in {19..20}
+for id in {19..21}
 do
     echo $id    
     kubectl exec -t $RECEIVE_POD1 -- ./quicrq_app client $SERVER_IP d 4433 get:videotest$id:/video1_source.bin > LOGS-$where/$id-get-1.csv  & \
