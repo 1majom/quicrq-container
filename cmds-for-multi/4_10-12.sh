@@ -1,6 +1,13 @@
 source 0.sh;
 cd $yamldir ;
-kubectl delete all --all & wait;
+
+if [ -z "$1" ]; then
+    echo "delete all"
+    kubectl config use-context $clusterA;
+    kubectl delete all --all  >/dev/null 2>&1 & wait;
+    kubectl config use-context $clusterB;
+    kubectl delete all --all  >/dev/null 2>&1 & wait;
+fi
 
 echo "scenario 4";
 kubectl config use-context $clusterA;

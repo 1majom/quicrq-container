@@ -1,18 +1,28 @@
 source 0.sh;
 cd $yamldir;
-kubectl delete all --all & wait;
+
+if [ -z "$1" ]; then
+    echo "delete all"
+    kubectl config use-context $clusterA;
+    kubectl delete all --all  >/dev/null 2>&1 & wait;
+    kubectl config use-context $clusterB;
+    kubectl delete all --all  >/dev/null 2>&1 & wait;
+fi
 
 echo "scenario 7-8-9";
 kubectl config use-context $clusterA;
-
-kubectl apply -f 1-7-8-9-client-lb-server-lb-client/deploy-server.yaml;
+if [ -z "$1" ]; then
+  kubectl apply -f 1-7-8-9-client-lb-server-lb-client/deploy-server.yaml;
+fi
 
 bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for end point..."; external_ip=$(kubectl get svc quicrq-server-lb --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip;'
 SERVER_IP=$(kubectl get svc quicrq-server-lb --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
 
 kubectl config use-context $clusterB;
-kubectl apply -f 1-7-8-9-client-lb-server-lb-client/client.yaml;
 
+if [ -z "$1" ]; then
+  kubectl apply -f 1-7-8-9-client-lb-server-lb-client/client.yaml;
+fi
 
 bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-client..."; external_ip=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[0].status.podIP}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip';
 bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for quicrq-client..."; external_ip=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[1].status.podIP}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready" && echo $external_ip';
@@ -25,7 +35,7 @@ RECEIVE_POD3=$(kubectl get pod -l app=quicrq-client -o jsonpath="{.items[3].meta
 
 cd $quicrqdir;
 sleep 5;
-for id in {19..21}
+for id in {19..20}
 do
     echo $id    
     kubectl exec -t $RECEIVE_POD1 -- ./quicrq_app client $SERVER_IP d 4433 get:videotest$id:/video1_source.bin > LOGS-$where/$id-get-1.csv  & \
@@ -35,4 +45,3 @@ do
     wait;
 done
 cd $yamldir ;
-kubectl delete all --all & wait;

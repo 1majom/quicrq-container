@@ -2,7 +2,14 @@ source 0.sh;
 cd $quicrqdir ;
 mkdir LOGS-$where;
 cd $yamldir ;
-kubectl delete all --all & wait;
+
+if [ -z "$1" ]; then
+    echo "delete all"
+    kubectl config use-context $clusterA;
+    kubectl delete all --all  >/dev/null 2>&1 & wait;
+    kubectl config use-context $clusterB;
+    kubectl delete all --all  >/dev/null 2>&1 & wait;
+fi
 
 kubectl config use-context $clusterA;
 kubectl apply -f 1-7-8-9-client-lb-server-lb-client/deploy-server.yaml;
@@ -30,3 +37,4 @@ do
   kubectl exec -t $TRANSMIT_POD -- ./quicrq_app client $SERVER_IP d 4433 post:videotest$id:./tests/video1_source.bin > LOGS-$where/$id-post.csv & \
   wait;
 done
+

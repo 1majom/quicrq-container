@@ -1,6 +1,14 @@
 source 0.sh;
 cd $yamldir;
-kubectl delete all --all & wait;
+
+if [ -z "$1" ]; then
+    echo "delete all"
+    kubectl config use-context $clusterA;
+    kubectl delete all --all  >/dev/null 2>&1 & wait;
+    kubectl config use-context $clusterB;
+    kubectl delete all --all  >/dev/null 2>&1 & wait;
+fi
+
 
 echo "scenario 6";
 kubectl config use-context $clusterA;
@@ -38,3 +46,5 @@ do
   kubectl exec -t $TRANSMIT_POD -- ./quicrq_app client $RELAY_IP_IN d 30901 post:videotest$id:./tests/video1_source.bin > LOGS-$where/$id-post.csv & \
   wait;
 done
+
+
